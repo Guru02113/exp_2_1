@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         val btdiff: Button = findViewById(R.id.btdiff)
         val btclear: Button = findViewById(R.id.btclear)
         val btadd: Button = findViewById(R.id.btadd)
+        val btdot: Button = findViewById(R.id.btdot)
         var getQ = ""
 
         val txt1: TextView = findViewById(R.id.txt1)
@@ -108,10 +109,14 @@ class MainActivity : AppCompatActivity() {
             txt2.text = ""
         }
 
+        btdot.setOnClickListener(){
+            getQ += ". "
+            txt1.text = getQ
+        }
         btequal.setOnClickListener {
             // Evaluate the expression
             val parts = getQ.trim().split(" ")
-            var result = 0
+            var result = 0.0
             var currentNumber = ""
             var operator = '+'
 
@@ -120,11 +125,11 @@ class MainActivity : AppCompatActivity() {
                     part == "+" || part == "-" || part == "*" || part == "/" -> {
                         // Process the current number
                         when (operator) {
-                            '+' -> result += currentNumber.toInt()
-                            '-' -> result -= currentNumber.toInt()
-                            '*' -> result *= currentNumber.toInt()
-                            '/' -> result /= currentNumber.toInt()
-                            else -> result = currentNumber.toInt()
+                            '+' -> result += currentNumber.toDouble()
+                            '-' -> result -= currentNumber.toDouble()
+                            '*' -> result *= currentNumber.toDouble()
+                            '/' -> result /= currentNumber.toDouble()
+                            else -> result = currentNumber.toDouble()
                         }
                         // Update operator and reset currentNumber
                         operator = part[0]
@@ -139,16 +144,15 @@ class MainActivity : AppCompatActivity() {
 
             // Process the last number
             when (operator) {
-                '+' -> result += currentNumber.toInt()
-                '-' -> result -= currentNumber.toInt()
-                '*' -> result *= currentNumber.toInt()
-                '/' -> result /= currentNumber.toInt()
-                else -> result = currentNumber.toInt()
+                '+' -> result += currentNumber.toDouble()
+                '-' -> result -= currentNumber.toDouble()
+                '*' -> result *= currentNumber.toDouble()
+                '/' -> result /= currentNumber.toDouble()
+                else -> result = currentNumber.toDouble()
             }
 
             txt2.text = result.toString()
         }
-
 
     }
 }
